@@ -1,0 +1,1454 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>LegalAI Pro — Advanced Legal Document Intelligence</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --primary: #0066FF;
+      --primary-dark: #0052CC;
+      --secondary: #6366F1;
+      --accent: #EC4899;
+      --success: #10B981;
+      --warning: #F59E0B;
+      --danger: #EF4444;
+      --dark: #0F172A;
+      --light: #F8FAFC;
+      --gray-50: #F9FAFB;
+      --gray-100: #F3F4F6;
+      --gray-200: #E5E7EB;
+      --gray-300: #D1D5DB;
+      --gray-600: #4B5563;
+      --gray-700: #374151;
+      --gray-800: #1F2937;
+      --gray-900: #111827;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #f5576c 75%, #4facfe 100%);
+      background-size: 400% 400%;
+      animation: gradientShift 15s ease infinite;
+      min-height: 100vh;
+      color: var(--dark);
+      line-height: 1.6;
+      font-weight: 400;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    @keyframes gradientShift {
+
+      0%,
+      100% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+    }
+
+    /* Enhanced Animations */
+    .fade-in {
+      animation: fadeIn 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+        filter: blur(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0px);
+      }
+    }
+
+    .fade-out {
+      animation: fadeOut 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+
+    @keyframes fadeOut {
+      from {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      to {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+    }
+
+    .slide-up {
+      animation: slideUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .scale-in {
+      animation: scaleIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+
+    @keyframes scaleIn {
+      from {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    /* Premium App Layout */
+    #app {
+      display: block;
+    }
+
+    .app-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 24px;
+      min-height: 100vh;
+    }
+
+    /* Premium Header */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 40px;
+      padding: 24px 40px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .header-content h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, white, rgba(255, 255, 255, 0.8));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 4px;
+      letter-spacing: -0.025em;
+    }
+
+    .header-content p {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 1.1rem;
+      font-weight: 500;
+    }
+
+    /* Premium Main Content */
+    .main-content {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border-radius: 24px;
+      padding: 48px;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .main-content::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+    }
+
+    /* Premium Upload Section */
+    .upload-section {
+      text-align: center;
+      margin-bottom: 48px;
+      padding: 60px;
+      border: 2px dashed var(--gray-300);
+      border-radius: 20px;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .upload-section::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+      border-radius: 20px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: -1;
+    }
+
+    .upload-section.dragover::before {
+      opacity: 1;
+    }
+
+    .upload-section.dragover {
+      border-color: transparent;
+      background: rgba(255, 255, 255, 0.95);
+      transform: scale(1.02);
+    }
+
+    .upload-section:hover {
+      border-color: var(--primary);
+      background: white;
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    }
+
+    .upload-icon {
+      font-size: 4rem;
+      margin-bottom: 24px;
+      /* **** STYLE CHANGE FOR VISIBILITY **** */
+      color: var(--primary);
+    }
+
+    .upload-section h2 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--gray-900);
+      margin-bottom: 12px;
+    }
+
+    .upload-section p {
+      color: var(--gray-600);
+      font-size: 1.1rem;
+      margin: 16px 0;
+      font-weight: 500;
+    }
+
+    .upload-btn,
+    .secondary-btn {
+      color: white;
+      border: none;
+      padding: 16px 32px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border-radius: 16px;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .upload-btn {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      box-shadow: 0 8px 25px rgba(0, 102, 255, 0.25);
+    }
+
+    .upload-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 35px rgba(0, 102, 255, 0.35);
+    }
+
+    .secondary-btn {
+      background: linear-gradient(135deg, var(--gray-700), var(--gray-800));
+      box-shadow: 0 8px 25px rgba(31, 41, 55, 0.25);
+    }
+
+    .secondary-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 35px rgba(31, 41, 55, 0.35);
+    }
+
+    .hint {
+      margin-top: 24px;
+      padding: 16px 24px;
+      background: linear-gradient(135deg, #fef3c7, #fed7aa);
+      border-radius: 12px;
+      color: var(--gray-700);
+      font-size: 0.95rem;
+      font-weight: 500;
+      border-left: 4px solid var(--warning);
+    }
+
+    /* Premium Processing */
+    .processing {
+      display: none;
+      text-align: center;
+      margin: 60px 0;
+      padding: 40px;
+    }
+
+    .processing-animation {
+      position: relative;
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 24px;
+    }
+
+    .spinner-ring {
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      border: 3px solid transparent;
+      border-radius: 50%;
+      animation: spin 2s linear infinite;
+    }
+
+    .spinner-ring:nth-child(1) {
+      border-top-color: var(--primary);
+      animation-duration: 2s;
+    }
+
+    .spinner-ring:nth-child(2) {
+      border-right-color: var(--secondary);
+      animation-duration: 3s;
+      animation-direction: reverse;
+    }
+
+    .spinner-ring:nth-child(3) {
+      border-bottom-color: var(--accent);
+      animation-duration: 1.5s;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    .processing h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--gray-900);
+      margin-bottom: 12px;
+    }
+
+    .processing p {
+      color: var(--gray-600);
+      font-size: 1.1rem;
+      font-weight: 500;
+    }
+
+    /* Premium Results */
+    .results {
+      display: none;
+      margin-top: 20px;
+    }
+
+    .result-section {
+      margin-bottom: 32px;
+      padding: 32px;
+      border-radius: 20px;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 1px solid var(--gray-200);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .result-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+    }
+
+    .summary-section {
+      background: linear-gradient(135deg, #eff6ff, #f0f9ff);
+      border-color: #bfdbfe;
+    }
+
+    .risks-section {
+      background: linear-gradient(135deg, #fef2f2, #fff5f5);
+      border-color: #fecaca;
+    }
+
+    .risks-section::before {
+      background: linear-gradient(135deg, var(--danger), #f87171);
+    }
+
+    .obligations-section {
+      background: linear-gradient(135deg, #fffbeb, #fef3c7);
+      border-color: #fed7aa;
+    }
+
+    .obligations-section::before {
+      background: linear-gradient(135deg, var(--warning), #fbbf24);
+    }
+
+    .result-section h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--gray-900);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .risk-item,
+    .obligation-item {
+      background: white;
+      padding: 20px 24px;
+      margin: 16px 0;
+      border-radius: 16px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+      border: 1px solid var(--gray-100);
+      font-weight: 500;
+      line-height: 1.6;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .risk-item:hover,
+    .obligation-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .risk-item {
+      border-left: 4px solid var(--danger);
+    }
+
+    .obligation-item {
+      border-left: 4px solid var(--warning);
+    }
+
+    /* Premium Download Button */
+    .download-section {
+      text-align: center;
+      margin: 48px 0;
+      padding: 32px;
+      background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+      border-radius: 20px;
+      border: 1px solid var(--gray-200);
+    }
+
+    .action-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+
+    .download-btn {
+      background: linear-gradient(135deg, var(--accent), #f472b6);
+      color: white;
+      border: none;
+      padding: 18px 36px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border-radius: 16px;
+      cursor: pointer;
+      box-shadow: 0 8px 25px rgba(236, 72, 153, 0.25);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .download-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 35px rgba(236, 72, 153, 0.35);
+    }
+
+    /* Premium Chatbot */
+    .chatbot-section {
+      background: white;
+      border-radius: 20px;
+      padding: 32px;
+      margin-top: 32px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+      border: 1px solid var(--gray-200);
+    }
+
+    .chatbot-section h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--gray-900);
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .chat-messages {
+      max-height: 400px;
+      overflow-y: auto;
+      margin-bottom: 24px;
+      padding: 20px;
+      background: var(--gray-50);
+      border-radius: 16px;
+      border: 1px solid var(--gray-100);
+    }
+
+    .message {
+      margin-bottom: 16px;
+      padding: 16px 20px;
+      border-radius: 18px;
+      max-width: 85%;
+      opacity: 0;
+      animation: fadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+      font-weight: 500;
+      line-height: 1.6;
+    }
+
+    .ai-message {
+      background: linear-gradient(135deg, var(--gray-100), white);
+      color: var(--gray-900);
+      border: 1px solid var(--gray-200);
+    }
+
+    .user-message {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      margin-left: auto;
+      text-align: left;
+      width: -moz-fit-content;
+      width: fit-content;
+    }
+
+    .chat-input-container {
+      display: flex;
+      gap: 16px;
+      align-items: flex-end;
+    }
+
+    .chat-input {
+      flex: 1;
+      padding: 14px 20px;
+      border-radius: 16px;
+      border: 1px solid var(--gray-300);
+      background: white;
+      font-size: 1rem;
+      font-weight: 500;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      font-family: 'Inter', sans-serif;
+      resize: none;
+      overflow-y: hidden;
+      line-height: 1.5;
+      max-height: 150px;
+    }
+
+    .chat-input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(0, 102, 255, 0.1);
+    }
+
+    .send-btn {
+      background: linear-gradient(135deg, var(--success), #10b981);
+      color: white;
+      border: none;
+      padding: 14px 24px;
+      border-radius: 16px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      height: 100%;
+    }
+
+    .send-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(16, 185, 129, 0.25);
+    }
+
+    /* Premium Feature Cards */
+    .features-section {
+      margin-top: 48px;
+    }
+
+    .features-section h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 32px;
+      color: var(--gray-900);
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      margin: 32px 0;
+    }
+
+    .feature-card {
+      background: white;
+      padding: 32px 28px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+      border: 1px solid var(--gray-200);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      opacity: 0;
+      transform: translateY(30px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .feature-card:hover::before {
+      left: 100%;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      border-color: var(--primary);
+    }
+
+    .feature-icon {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .feature-card h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--gray-900);
+      margin-bottom: 12px;
+    }
+
+    .feature-card p {
+      color: var(--gray-600);
+      line-height: 1.6;
+      font-weight: 500;
+    }
+
+    /* Typing Indicator */
+    .typing-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .typing-dot {
+      height: 8px;
+      width: 8px;
+      background: var(--gray-600);
+      border-radius: 50%;
+      animation: pulse 1.4s infinite ease-in-out;
+    }
+
+    .typing-dot:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .typing-dot:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      80%,
+      100% {
+        transform: scale(0.8);
+        opacity: 0.5;
+      }
+
+      40% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .app-container {
+        padding: 16px;
+      }
+
+      .header {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+        padding: 24px;
+      }
+
+      .main-content {
+        padding: 32px 24px;
+      }
+
+      .upload-section {
+        padding: 40px 24px;
+      }
+
+      .login-container {
+        width: 95%;
+        padding: 32px 24px;
+      }
+
+      .feature-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Scroll Animations */
+    @media (prefers-reduced-motion: no-preference) {
+      .animate-on-scroll {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .animate-on-scroll.in-view {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="app" aria-hidden="true">
+    <div class="app-container fade-in">
+      <header class="header">
+        <div class="header-content">
+          <h1>⚖️ LegalAI Pro</h1>
+          <p>Transform complex legal documents into clear, actionable insights</p>
+        </div>
+      </header>
+
+      <div class="main-content">
+        <section id="uploadSection" class="upload-section" aria-label="Document upload area">
+          <div class="upload-icon">📁📄</div>
+          <h2>Upload Legal Document</h2>
+          <p>Drag and drop your legal document or click to browse</p>
+          <p>Supports PDF, Word (.doc, .docx), and text files up to 25MB</p>
+
+          <input id="fileInput" type="file" accept=".pdf,.doc,.docx,.txt" style="display:none" />
+          <button id="chooseBtn" class="upload-btn">Choose Document</button>
+
+          <div class="hint">
+            💡 <strong>Pro Tip:</strong> Upload a file with "lease" in the name for Lease Agreement analysis, or any
+            other file for Employment Contract demo.
+          </div>
+        </section>
+
+        <section id="processing" class="processing" aria-hidden="true">
+          <div class="processing-animation">
+            <div class="spinner-ring"></div>
+            <div class="spinner-ring"></div>
+            <div class="spinner-ring"></div>
+          </div>
+          <h3>Analyzing Document with AI</h3>
+          <p>Our advanced legal AI is processing your document, extracting key clauses, and identifying potential
+            risks...</p>
+        </section>
+
+        <section id="results" class="results" aria-live="polite">
+          <div id="summarySection" class="result-section summary-section animate-on-scroll">
+            <h3>📋 Executive Summary</h3>
+            <div id="summaryContent"></div>
+          </div>
+
+          <div id="risksSection" class="result-section risks-section animate-on-scroll">
+            <h3>⚠️ Risk Analysis & Red Flags</h3>
+            <div id="risksContent"></div>
+          </div>
+
+          <div id="obligationsSection" class="result-section obligations-section animate-on-scroll">
+            <h3>📝 Key Obligations & Requirements</h3>
+            <div id="obligationsContent"></div>
+          </div>
+
+          <div class="download-section animate-on-scroll">
+            <h3>📊 Export Analysis & Actions</h3>
+            <p>Download a comprehensive report or start over with a new document.</p>
+            <div class="action-buttons">
+              <button id="downloadBtn" class="download-btn">📥 Download Professional Report</button>
+              <button id="resetBtn" class="secondary-btn">🔄 Upload Another Document</button>
+            </div>
+          </div>
+
+          <div class="chatbot-section animate-on-scroll">
+            <h3>💬 AI Legal Assistant</h3>
+            <div id="chatMessages" class="chat-messages" aria-live="polite">
+              <div class="message ai-message">
+                👋 Hello! I've completed my analysis of your document. I can help clarify any specific clauses, explain
+                legal terms, or answer questions about your obligations and rights. What would you like to know?
+              </div>
+            </div>
+            <div class="chat-input-container">
+              <textarea id="chatInput" class="chat-input" placeholder="Ask me anything... (Shift+Enter for new line)"
+                rows="1"></textarea>
+              <button id="sendBtn" class="send-btn">Send</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="features-section animate-on-scroll">
+          <h2>Why Choose LegalAI Pro?</h2>
+          <div class="feature-grid" id="featureGrid">
+            <div class="feature-card">
+              <div class="feature-icon">🤖</div>
+              <h3>Advanced AI Analysis</h3>
+              <p>State-of-the-art natural language processing specifically trained on legal documents to provide
+                accurate, contextual analysis.</p>
+            </div>
+            <div class="feature-card">
+              <div class="feature-icon">🎯📊</div>
+              <h3>Smart Reports & Risk Detection</h3>
+              <p>Automatically identifies risks and generates detailed PDF reports with executive summaries, risk
+                assessments, and actionable recommendations.</p>
+            </div>
+            <div class="feature-card">
+              <div class="feature-icon">💬</div>
+              <h3>Interactive Q&A</h3>
+              <p>Get instant answers to complex legal questions with our AI assistant trained on thousands of legal
+                documents.</p>
+            </div>
+            <div class="feature-card">
+              <div class="feature-icon">🔒</div>
+              <h3>Enterprise Security</h3>
+              <p>Bank-grade encryption and zero-retention policy ensures your sensitive legal documents remain
+                completely confidential.</p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <script>
+    // Enhanced Application State Management
+    class LegalAIApp {
+      constructor() {
+        this.initializeElements();
+        this.initializeEventListeners();
+        this.initializeAnimations();
+        this.lastAnalysisType = 'employment';
+      }
+
+      initializeElements() {
+        // App Elements
+        this.app = document.getElementById('app');
+
+        // Upload Elements
+        this.fileInput = document.getElementById('fileInput');
+        this.chooseBtn = document.getElementById('chooseBtn');
+        this.uploadSection = document.getElementById('uploadSection');
+        this.processing = document.getElementById('processing');
+        this.results = document.getElementById('results');
+
+        // Content Elements
+        this.summaryContent = document.getElementById('summaryContent');
+        this.risksContent = document.getElementById('risksContent');
+        this.obligationsContent = document.getElementById('obligationsContent');
+
+        // Interactive Elements
+        this.downloadBtn = document.getElementById('downloadBtn');
+        this.chatMessages = document.getElementById('chatMessages');
+        this.chatInput = document.getElementById('chatInput');
+        this.sendBtn = document.getElementById('sendBtn');
+        this.resetBtn = document.getElementById('resetBtn');
+      }
+
+      initializeEventListeners() {
+        // File Upload
+        this.chooseBtn.addEventListener('click', () => this.fileInput.click());
+        this.fileInput.addEventListener('change', (e) => this.handleFileSelect(e));
+        this.setupDragAndDrop();
+
+        // Chat
+        this.sendBtn.addEventListener('click', () => this.handleChatMessage());
+
+        this.chatInput.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            this.handleChatMessage();
+          }
+        });
+
+        this.chatInput.addEventListener('input', () => {
+          this.autoResizeChatInput();
+        });
+
+        // Actions
+        this.downloadBtn.addEventListener('click', () => this.generatePDFReport());
+        this.resetBtn.addEventListener('click', () => this.resetApp());
+      }
+
+      autoResizeChatInput() {
+        this.chatInput.style.height = 'auto';
+        this.chatInput.style.height = `${this.chatInput.scrollHeight}px`;
+      }
+
+      resetApp() {
+        this.results.classList.add('fade-out');
+
+        setTimeout(() => {
+          this.results.style.display = 'none';
+          this.processing.style.display = 'none';
+          this.uploadSection.style.display = 'block';
+
+          this.summaryContent.innerHTML = '';
+          this.risksContent.innerHTML = '';
+          this.obligationsContent.innerHTML = '';
+
+          this.chatMessages.innerHTML = `
+            <div class="message ai-message">
+              👋 Hello! I've completed my analysis of your document. I can help clarify any specific clauses, explain legal terms, or answer questions about your obligations and rights. What would you like to know?
+            </div>
+          `;
+
+          this.fileInput.value = null;
+
+          document.querySelectorAll('.animate-on-scroll').forEach(el => {
+            el.classList.remove('in-view', 'slide-up');
+            el.style.opacity = '';
+            el.style.transform = '';
+          });
+
+          this.results.classList.remove('fade-out');
+
+          this.uploadSection.classList.remove('fade-out');
+          this.uploadSection.classList.add('fade-in');
+        }, 600);
+      }
+
+      initializeAnimations() {
+        const observerOptions = {
+          threshold: 0.1,
+          rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('in-view');
+            }
+          });
+        }, observerOptions);
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => {
+          observer.observe(el);
+        });
+      }
+
+      setupDragAndDrop() {
+        this.uploadSection.addEventListener('dragover', (e) => {
+          e.preventDefault();
+          this.uploadSection.classList.add('dragover');
+        });
+
+        this.uploadSection.addEventListener('dragleave', () => {
+          this.uploadSection.classList.remove('dragover');
+        });
+
+        this.uploadSection.addEventListener('drop', (e) => {
+          e.preventDefault();
+          this.uploadSection.classList.remove('dragover');
+          const files = e.dataTransfer.files;
+          if (files.length > 0) {
+            this.handleFileSelect({ target: { files } });
+          }
+        });
+      }
+
+      getAnalysisData() {
+        return {
+          employment: {
+            summary: `This employment agreement establishes a comprehensive framework for the professional relationship between the employer and employee. The contract includes detailed provisions regarding compensation, benefits, performance expectations, and termination procedures. Key components include a competitive salary structure with performance-based bonuses, comprehensive benefits package, and clearly defined roles and responsibilities.
+
+            <br><br><strong>Contract Duration:</strong> Indefinite term with 90-day probationary period
+            <br><strong>Compensation Structure:</strong> Base salary plus quarterly performance bonuses
+            <br><strong>Benefits Package:</strong> Health insurance, retirement contributions, and paid time off`,
+
+            risks: [
+              {
+                title: "Restrictive Non-Compete Clause",
+                description: "The agreement contains an 18-month non-compete restriction that could significantly limit your future employment opportunities within the industry. This clause may be overly broad and potentially unenforceable in certain jurisdictions.",
+                severity: "High"
+              },
+              {
+                title: "Broad Confidentiality Agreement",
+                description: "The confidentiality provisions extend beyond trade secrets to include general business practices and client relationships, which could restrict normal professional networking and future business activities.",
+                severity: "Medium"
+              },
+              {
+                title: "Ambiguous Termination Clauses",
+                description: "The 'for cause' termination definitions are broadly worded and could be interpreted unfavorably during disputes. Consider requesting more specific performance standards and termination procedures.",
+                severity: "Medium"
+              },
+              {
+                title: "Intellectual Property Assignment",
+                description: "All work-related intellectual property, including inventions created outside of work hours, automatically transfers to the company. This could affect personal projects and side ventures.",
+                severity: "High"
+              }
+            ],
+
+            obligations: [
+              {
+                title: "Performance Standards",
+                description: "Maintain satisfactory performance as measured by quarterly reviews and established KPIs. Failure to meet standards may result in performance improvement plans or termination.",
+                priority: "Critical"
+              },
+              {
+                title: "Confidentiality Requirements",
+                description: "Protect all proprietary information, client data, and trade secrets both during employment and after termination. This includes non-disclosure of salary information and business strategies.",
+                priority: "Critical"
+              },
+              {
+                title: "Professional Development",
+                description: "Complete mandatory training programs and maintain relevant professional certifications as required by your role and industry regulations.",
+                priority: "Important"
+              },
+              {
+                title: "Compliance Obligations",
+                description: "Adhere to all company policies, industry regulations, and legal requirements applicable to your position and the organization's operations.",
+                priority: "Critical"
+              }
+            ]
+          },
+
+          lease: {
+            summary: `This residential lease agreement establishes the terms and conditions for rental of the specified property. The document outlines rental obligations, property maintenance responsibilities, and tenant rights. The lease includes provisions for rent payments, security deposits, property use restrictions, and termination procedures.
+
+            <br><br><strong>Lease Term:</strong> 12 months with automatic renewal option
+            <br><strong>Monthly Rent:</strong> Due on the 1st of each month with late fees after 5-day grace period
+            <br><strong>Security Deposit:</strong> Equivalent to 1.5 months' rent, refundable subject to property condition`,
+
+            risks: [
+              {
+                title: "Annual Rent Escalation",
+                description: "The lease includes an automatic 5% annual rent increase clause that compounds yearly, potentially making the property unaffordable over time.",
+                severity: "High"
+              },
+              {
+                title: "Limited Security Deposit Return",
+                description: "The agreement allows deductions from the security deposit for normal wear and tear, which exceeds standard legal protections in most jurisdictions.",
+                severity: "Medium"
+              },
+              {
+                title: "Restrictive Pet Policy",
+                description: "The pet policy requires additional deposits and monthly fees, with potential liability for property damage that extends beyond normal pet-related wear.",
+                severity: "Low"
+              },
+              {
+                title: "Early Termination Penalties",
+                description: "Breaking the lease early results in forfeiture of security deposit plus additional penalties equivalent to two months' rent.",
+                severity: "Medium"
+              }
+            ],
+
+            obligations: [
+              {
+                title: "Timely Rent Payment",
+                description: "Pay monthly rent by the 1st of each month. Late payments after the 5-day grace period incur fees and may result in eviction proceedings.",
+                priority: "Critical"
+              },
+              {
+                title: "Property Maintenance",
+                description: "Maintain the property in good condition, report maintenance issues promptly, and allow reasonable access for inspections and repairs.",
+                priority: "Important"
+              },
+              {
+                title: "Modification Approval",
+                description: "Obtain written landlord approval before making any alterations, installations, or modifications to the property, including painting or fixture changes.",
+                priority: "Important"
+              },
+              {
+                title: "Insurance Requirements",
+                description: "Maintain renter's insurance with minimum coverage amounts as specified in the lease agreement and provide proof of coverage annually.",
+                priority: "Critical"
+              }
+            ]
+          }
+        };
+      }
+
+      handleFileSelect(event) {
+        const files = event.target.files;
+        if (files && files.length > 0) {
+          this.processDocument(files[0]);
+        }
+      }
+
+      async processDocument(file) {
+        if (!this.validateFile(file)) return;
+
+        this.uploadSection.style.display = 'none';
+        this.processing.style.display = 'block';
+
+        // Convert file to base64
+        const base64 = await fileToBase64(file); // helper function below
+
+        const payload = {
+          filename: file.name,
+          fileContent: base64
+        };
+
+        try {
+          const response = await fetch('http://localhost:5678/webhook/upload-pdf', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+          });
+
+          const result = await response.json(); // parse JSON directly
+
+          this.processing.style.display = 'none';
+          this.results.style.display = 'block';
+
+          this.summaryContent.innerHTML = `<div style="font-size: 1.1rem; line-height: 1.7;">${result.summary || "No summary available"}</div>`;
+          this.risksContent.innerHTML = (result.risks || []).map(r => `<div class="risk-item">${r}</div>`).join("");
+          this.obligationsContent.innerHTML = (result.obligations || []).map(o => `<div class="obligation-item">${o}</div>`).join("");
+
+          this.animateResults();
+
+        } catch (err) {
+          console.error(err);
+          alert("Upload failed: " + err.message);
+          this.uploadSection.style.display = 'block';
+          this.processing.style.display = 'none';
+        }
+      }
+
+      // Helper function to convert File -> Base64
+      fileToBase64(file) {
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => resolve(reader.result.split(',')[1]);
+          reader.onerror = reject;
+          reader.readAsDataURL(file);
+        });
+      }
+
+
+      validateFile(file) {
+        const maxSize = 25 * 1024 * 1024;
+        const allowedTypes = ['.pdf', '.doc', '.docx', '.txt'];
+        const fileExtension = '.' + file.name.split('.').pop().toLowerCase();
+
+        if (file.size > maxSize) {
+          alert('File size exceeds 25MB limit. Please choose a smaller file.');
+          return false;
+        }
+
+        if (!allowedTypes.includes(fileExtension)) {
+          alert('Unsupported file type. Please upload PDF, Word, or text files only.');
+          return false;
+        }
+
+        return true;
+      }
+
+      displayAnalysis(filename) {
+        const analysisType = filename.toLowerCase().includes('lease') ? 'lease' : 'employment';
+        this.lastAnalysisType = analysisType;
+        const data = this.getAnalysisData()[analysisType];
+
+        this.summaryContent.innerHTML = `<div style="font-size: 1.1rem; line-height: 1.7;">${data.summary}</div>`;
+
+        this.risksContent.innerHTML = data.risks.map(risk => `
+          <div class="risk-item">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+              <strong style="color: #dc2626; font-size: 1.1rem;">${risk.title}</strong>
+              <span style="background: #fee2e2; color: #dc2626; padding: 4px 12px; border-radius: 12px; font-size: 0.85rem; font-weight: 600; margin-left: auto;">${risk.severity}</span>
+            </div>
+            <p>${risk.description}</p>
+          </div>
+        `).join('');
+
+        this.obligationsContent.innerHTML = data.obligations.map(obligation => `
+          <div class="obligation-item">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+              <strong style="color: #d97706; font-size: 1.1rem;">${obligation.title}</strong>
+              <span style="background: #fef3c7; color: #d97706; padding: 4px 12px; border-radius: 12px; font-size: 0.85rem; font-weight: 600; margin-left: auto;">${obligation.priority}</span>
+            </div>
+            <p>${obligation.description}</p>
+          </div>
+        `).join('');
+      }
+
+      animateResults() {
+        const sections = document.querySelectorAll('.result-section, .download-section, .chatbot-section');
+        sections.forEach((section, index) => {
+          setTimeout(() => {
+            section.style.opacity = '1';
+            section.style.transform = 'translateY(0)';
+          }, index * 200);
+        });
+
+        setTimeout(() => {
+          const cards = document.querySelectorAll('.feature-card');
+          cards.forEach((card, index) => {
+            setTimeout(() => {
+              card.style.opacity = '1';
+              card.style.transform = 'translateY(0)';
+            }, index * 100);
+          });
+        }, 1000);
+      }
+
+      handleChatMessage() {
+        const message = this.chatInput.value.trim();
+        if (!message) return;
+
+        this.addChatMessage(message, 'user');
+        this.chatInput.value = '';
+        this.autoResizeChatInput();
+
+        this.showTypingIndicator();
+
+        setTimeout(() => {
+          this.removeTypingIndicator();
+          const response = this.generateAIResponse(message);
+          this.simulateTypingResponse(response);
+        }, 1000 + Math.random() * 1500);
+      }
+
+      addChatMessage(text, sender) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `message ${sender}-message`;
+        messageDiv.textContent = text;
+        this.chatMessages.appendChild(messageDiv);
+        this.chatMessages.scrollTop = this.chatMessages.scrollHeight;
+      }
+
+      showTypingIndicator() {
+        this.removeTypingIndicator();
+        const indicator = document.createElement('div');
+        indicator.id = 'typingIndicator';
+        indicator.className = 'message ai-message';
+        indicator.innerHTML = `
+          <div class="typing-indicator">
+            <span class="typing-dot"></span>
+            <span class="typing-dot"></span>
+            <span class="typing-dot"></span>
+          </div>
+        `;
+        this.chatMessages.appendChild(indicator);
+        this.chatMessages.scrollTop = this.chatMessages.scrollHeight;
+      }
+
+      removeTypingIndicator() {
+        const indicator = document.getElementById('typingIndicator');
+        if (indicator) indicator.remove();
+      }
+
+      simulateTypingResponse(text) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = 'message ai-message';
+        this.chatMessages.appendChild(messageDiv);
+
+        let index = 0;
+        const typingSpeed = 30 + Math.random() * 20;
+
+        const typeWriter = () => {
+          if (index < text.length) {
+            messageDiv.textContent += text.charAt(index);
+            index++;
+            this.chatMessages.scrollTop = this.chatMessages.scrollHeight;
+            setTimeout(typeWriter, typingSpeed);
+          }
+        };
+
+        typeWriter();
+      }
+
+      generateAIResponse(question) {
+        const q = question.toLowerCase();
+
+        if (q.includes('terminate') || q.includes('quit') || q.includes('resign') || q.includes('leave')) {
+          return "Regarding termination: You can resign by providing 30 days written notice as specified in Section 5.2. However, the non-compete clause will remain in effect for 18 months post-termination. I recommend reviewing the termination benefits and discussing transition arrangements with HR.";
+        }
+
+        if (q.includes('salary') || q.includes('pay') || q.includes('compensation') || q.includes('wages')) {
+          return "Your compensation package includes a base salary outlined in Section 3.1, plus performance-based quarterly bonuses detailed in Section 3.2. Annual salary reviews are conducted each January. The benefits package includes health insurance, dental coverage, and retirement contributions.";
+        }
+
+        if (q.includes('vacation') || q.includes('pto') || q.includes('time off') || q.includes('holiday')) {
+          return "Your time-off benefits include 15 days of paid vacation in year one, increasing to 20 days after two years of service. You also receive 10 sick days annually and standard federal holidays. Vacation time must be approved by your supervisor with at least two weeks' notice.";
+        }
+
+        if (q.includes('benefit') || q.includes('insurance') || q.includes('401k') || q.includes('health')) {
+          return "Your comprehensive benefits package includes: health insurance (company pays 80% of premiums), dental and vision coverage, 401(k) plan with 4% company matching, life insurance coverage, and access to employee wellness programs. Benefits enrollment occurs during your first week.";
+        }
+
+        if (q.includes('non-compete') || q.includes('competition') || q.includes('competitor')) {
+          return "The non-compete clause restricts you from working with direct competitors for 18 months after leaving the company. This applies within a 50-mile radius and covers similar roles in your industry. Consider consulting with an employment attorney to understand the enforceability of this clause in your jurisdiction.";
+        }
+
+        if (q.includes('confidential') || q.includes('proprietary') || q.includes('trade secret')) {
+          return "The confidentiality agreement covers all proprietary information, client lists, business strategies, and trade secrets. This obligation continues indefinitely after employment ends. Be cautious about discussing work matters outside the company, even in casual conversations.";
+        }
+
+        if (q.includes('overtime') || q.includes('hours') || q.includes('work time')) {
+          return "Standard work hours are 40 hours per week. Overtime compensation is provided at 1.5x your regular hourly rate for hours exceeding 40 per week. All overtime must be pre-approved by your manager and properly documented in the time tracking system.";
+        }
+
+        return "I can help clarify any specific aspect of your legal document. Try asking about salary, benefits, termination procedures, confidentiality requirements, working hours, or any specific clause that concerns you. What particular section would you like to me explain?";
+      }
+
+      generatePDFReport() {
+        if (!window.jspdf || !window.jspdf.jsPDF) {
+          alert('PDF generation is currently unavailable. Please check your internet connection.');
+          return;
+        }
+
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF({ unit: 'pt', format: 'a4' });
+        const pageWidth = doc.internal.pageSize.getWidth();
+        const pageHeight = doc.internal.pageSize.getHeight();
+        const margin = 50;
+        let yPosition = 60;
+
+        doc.setFillColor(0, 102, 255);
+        doc.rect(0, 0, pageWidth, 80, 'F');
+
+        doc.setTextColor(255, 255, 255);
+        doc.setFontSize(24);
+        doc.setFont('helvetica', 'bold');
+        doc.text('⚖️ LegalAI Pro - Document Analysis Report', margin, 45);
+
+        doc.setFontSize(12);
+        doc.setFont('helvetica', 'normal');
+        doc.text(`Generated on: ${new Date().toLocaleDateString()}`, margin, 65);
+
+        yPosition = 100;
+        doc.setTextColor(0, 0, 0);
+
+        this.addSectionToPDF(doc, 'EXECUTIVE SUMMARY', this.summaryContent.innerText, yPosition, margin, pageWidth);
+        yPosition += this.calculateTextHeight(doc, this.summaryContent.innerText, pageWidth - 2 * margin) + 40;
+
+        if (yPosition > pageHeight - 150) {
+          doc.addPage();
+          yPosition = margin;
+        }
+
+        this.addSectionToPDF(doc, 'RISK ANALYSIS & RED FLAGS', this.risksContent.innerText, yPosition, margin, pageWidth);
+        yPosition += this.calculateTextHeight(doc, this.risksContent.innerText, pageWidth - 2 * margin) + 40;
+
+        if (yPosition > pageHeight - 150) {
+          doc.addPage();
+          yPosition = margin;
+        }
+
+        this.addSectionToPDF(doc, 'KEY OBLIGATIONS & REQUIREMENTS', this.obligationsContent.innerText, yPosition, margin, pageWidth);
+        yPosition += this.calculateTextHeight(doc, this.obligationsContent.innerText, pageWidth - 2 * margin) + 40;
+
+        const chatHistory = this.extractChatHistory();
+        if (chatHistory && yPosition < pageHeight - 100) {
+          if (yPosition > pageHeight - 200) {
+            doc.addPage();
+            yPosition = margin;
+          }
+
+          this.addSectionToPDF(doc, 'AI CONSULTATION HISTORY', chatHistory, yPosition, margin, pageWidth);
+        }
+
+        const totalPages = doc.internal.getNumberOfPages();
+        for (let i = 1; i <= totalPages; i++) {
+          doc.setPage(i);
+          doc.setFontSize(10);
+          doc.setTextColor(128, 128, 128);
+          doc.text(`LegalAI Pro Report - Page ${i} of ${totalPages}`, margin, pageHeight - 20);
+          doc.text('Confidential Legal Analysis', pageWidth - margin - 100, pageHeight - 20);
+        }
+
+        const filename = this.lastAnalysisType === 'lease' ?
+          'LegalAI_Pro_Lease_Analysis.pdf' :
+          'LegalAI_Pro_Employment_Analysis.pdf';
+
+        doc.save(filename);
+      }
+
+      addSectionToPDF(doc, title, content, yPosition, margin, pageWidth) {
+        doc.setFontSize(16);
+        doc.setFont('helvetica', 'bold');
+        doc.setTextColor(0, 102, 255);
+        doc.text(title, margin, yPosition);
+
+        yPosition += 25;
+
+        doc.setFontSize(11);
+        doc.setFont('helvetica', 'normal');
+        doc.setTextColor(0, 0, 0);
+
+        const lines = doc.splitTextToSize(content.trim(), pageWidth - 2 * margin);
+        doc.text(lines, margin, yPosition);
+      }
+
+      calculateTextHeight(doc, text, maxWidth) {
+        const lines = doc.splitTextToSize(text, maxWidth);
+        return lines.length * 14;
+      }
+
+      extractChatHistory() {
+        const messages = Array.from(this.chatMessages.querySelectorAll('.message:not(#typingIndicator)'));
+        return messages.map(msg => {
+          const isUser = msg.classList.contains('user-message');
+          const prefix = isUser ? 'User: ' : 'AI Assistant: ';
+          return prefix + msg.textContent;
+        }).join('\n\n');
+      }
+    }
+
+    // Initialize Application
+    document.addEventListener('DOMContentLoaded', () => {
+      const app = new LegalAIApp();
+
+      setTimeout(() => {
+        document.body.classList.add('loaded');
+      }, 100);
+    });
+  </script>
+</body>
+
+</html>
